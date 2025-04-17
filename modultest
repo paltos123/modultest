@@ -1,3 +1,4 @@
+КОД
 using System;
 
 namespace ConsoleApp4
@@ -32,7 +33,7 @@ namespace ConsoleApp4
     }
 }
 
-
+МОДУЛЬНЫЙ ТЕСТ
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ConsoleApp4;
 
