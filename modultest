@@ -1,26 +1,42 @@
 using System;
 
-namespace MathTaskClassLibrary56
+namespace ConsoleApp4
 {
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Geometry geometry = new Geometry();
+            Console.WriteLine("Программа для вычисления объема цилиндра");
+
+            Console.Write("Введите радиус: ");
+            double radius = double.Parse(Console.ReadLine());
+
+            Console.Write("Введите высоту: ");
+            double height = double.Parse(Console.ReadLine());
+
+            double volume = geometry.CalculateCylinderVolume(radius, height);
+            Console.WriteLine($"Объем цилиндра: {volume:F4}");
+        }
+    }
+
     public class Geometry
     {
         public double CalculateCylinderVolume(double radius, double height)
         {
-            double volume = Math.PI * Math.Pow(radius, 2) * height;
-            return volume;
+            if (radius <= 0 || height <= 0)
+                throw new ArgumentException("Радиус и высота должны быть положительными числами");
+
+            return Math.PI * Math.Pow(radius, 2) * height;
         }
     }
 }
 
 
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MathTaskClassLibrary56;
-using System;
+using ConsoleApp4;
 
-
-
-namespace MathTaskClassLibraryTests
+namespace UnitTestProject1
 {
     [TestClass]
     public class GeometryTests
@@ -28,16 +44,39 @@ namespace MathTaskClassLibraryTests
         [TestMethod]
         public void CylinderVolume_Radius3Height5_ExpectedVolumeReturned()
         {
+            // Arrange
             double radius = 3.0;
             double height = 5.0;
-            double expectedVolume = 141.3717; 
-
+            double expectedVolume = 141.3717;
             Geometry geometry = new Geometry();
 
+            // Act
             double actualVolume = geometry.CalculateCylinderVolume(radius, height);
 
-          
+            // Assert
             Assert.AreEqual(expectedVolume, actualVolume, 0.0001);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CylinderVolume_NegativeRadius_ThrowsException()
+        {
+            // Arrange
+            Geometry geometry = new Geometry();
+
+            // Act
+            geometry.CalculateCylinderVolume(-1, 5);
+        }
+
+        [TestMethod]
+        public void CylinderVolume_ZeroHeight_ThrowsException()
+        {
+            // Arrange
+            Geometry geometry = new Geometry();
+
+            // Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => 
+                geometry.CalculateCylinderVolume(3, 0));
         }
     }
 }
