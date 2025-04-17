@@ -1,0 +1,45 @@
+using System;
+
+namespace MathTaskClassLibrary56
+{
+    public class Geometry
+    {
+        public double CalculateCylinderVolume(double radius, double height)
+        {
+            double volume = Math.PI * Math.Pow(radius, 2) * height;
+            return volume;
+        }
+    }
+}
+
+
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MathTaskClassLibrary56;
+using System;
+
+
+
+namespace MathTaskClassLibraryTests
+{
+    [TestClass]
+    public class GeometryTests
+    {
+        [TestMethod]
+        public void CylinderVolume_Radius3Height5_ExpectedVolumeReturned()
+        {
+            double radius = 3.0;
+            double height = 5.0;
+            double expectedVolume = 141.3717; 
+
+            Geometry geometry = new Geometry();
+
+            double actualVolume = geometry.CalculateCylinderVolume(radius, height);
+
+          
+            Assert.AreEqual(expectedVolume, actualVolume, 0.0001);
+        }
+    }
+}
+
+НЕ ЗАБЫТЬ ИСПОЛЬЗОВАТЬ .NET
